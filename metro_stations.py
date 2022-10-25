@@ -39,16 +39,28 @@ class MetroStation:
 #   - Have an additional attribute called `lines` that is user-defined as a list during initialization.
 #       This will indicate which subway lines stop at the station (for example ['A', 'C'])
 #   - Override the show_info() method from MetroStation to display which subway lines stop there, in addition to the station_name and location
+class SubwayStation(MetroStation):
 
+    def __init__(self, station_name, location, lines):
+        super().__init__(station_name, location)
+        self.lines = lines
 
+    def show_info(self):
+        super().show_info()
+        self.display_lines()
+        
+    def display_lines(self):
+        print(f'The following lines {self.lines} stop here.')
 
-# 1.2 TODO: Using your `SubwayStation` class, instantiate a subway station with the info below. 
+# 1.2 TODO: Using your `SubwayStation` cla5 css, instantiate a subway station with the info below. 
 # Then run the show_info() method.
 # Make sure it prints out the station_name, location, whether it's open, and lines printed out
 #   (NOTE: This means that the code in `MetroStation.show_info()` should still run in the `SubwayStation` code)
 # station_name: '14th street'
 # location: '14th street and 7th avenue'
 # lines: ['1', '2', '3', 'L']
+subway_station_1 = SubwayStation('14th street','14th street and 7th avenue', ['1', '2', '3', 'L'])
+SubwayStation.show_info(subway_station_1)
 
 
 
@@ -62,8 +74,17 @@ class MetroStation:
 #   ^ both should take in a route to either add or remove from the list of routes, respectively.
 # - Override the show_info() method to display the bus routes in addition to the station name and location
 #   (NOTE: This means that the code in `MetroStation.show_info()` should still run in the `SubwayStation` code)      
-
-
+class BusStation(MetroStation):
+    def __init__(self, station_name, location, routes):
+        super().__init__(station_name, location)
+        self.routes = routes
+    def add_route(self, new_route):
+        self.routes.append(new_route)
+    def remove_route(self, discontinued_route):
+        self.routes.remove(discontinued_route)
+    def show_info(self):
+        super().show_info()
+        print(f'The following routes {self.routes} leave from this station.')
 # 3.0 TODO: Using your `BusStation` class:
 # 3.1 Instantiate a bus station with the info below. 
 # 3.2 Then, run the show_info() method to make sure you get the station_name, location, routes, and whether the station is open printed out
@@ -73,3 +94,7 @@ class MetroStation:
 # station_name: 'NYC Megabus Stop'
 # location: '34th street and 12th avenue'
 # routes: ['Boston', 'DC', 'Philly']
+nyc_megabus = BusStation('NYC Megabus Stop','34th street and 12th avenue', ['Boston', 'DC', 'Philly'])
+nyc_megabus.show_info()
+nyc_megabus.close_station()
+nyc_megabus.show_info()
